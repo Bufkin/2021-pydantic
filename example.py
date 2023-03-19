@@ -60,7 +60,8 @@ class Book(pydantic.BaseModel):
         """Validator to check whether ISBN10 is valid"""
         chars = [c for c in value if c in "0123456789Xx"]
         if len(chars) != 10:
-            raise ISBN10FormatError(value=value, message="ISBN10 should be 10 digits.")
+            raise ISBN10FormatError(
+                value=value, message="ISBN10 should be 10 digits.")
 
         def char_to_int(char: str) -> int:
             if char in "Xx":
@@ -74,7 +75,7 @@ class Book(pydantic.BaseModel):
         return value
 
     class Config:
-        """Pydantic config class"""
+        """ Pydantic config class. """
 
         allow_mutation = False
         anystr_lower = True
@@ -88,7 +89,7 @@ def main() -> None:
         data = json.load(file)
         books: List[Book] = [Book(**item) for item in data]
         # print(books)
-        print(books[0])
+        print(books[2])
         # print(books[0].dict(exclude={"price"}))
         # print(books[1].copy())
 
